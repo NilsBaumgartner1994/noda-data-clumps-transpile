@@ -1,0 +1,27 @@
+name: Demo Gif
+
+# Only trigger, when the build workflow succeeded
+on:
+  workflow_run:
+    workflows: ["Publish"]
+    types:
+      - completed
+
+jobs:
+  generate-gif:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}  # Add this condition
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Website to file
+        uses: PabloLec/website-to-gif@2.1.0
+        with:
+          url: "https://baumgartner-software.github.io/node-galaxy-vr-transpile//?demoType=main"
+          save_path: "/docs/demo.gif"
+      - name: Commit file to GH repo
+        run: |
+          git config --global user.name "Nils Baumgartner"
+          git config --global user.email "nilsbaumgartner1994@gmail.com"
+          git add .
+          git commit -m "[GIF] Update"
+          git push
