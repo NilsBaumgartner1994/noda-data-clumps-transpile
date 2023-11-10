@@ -160,7 +160,7 @@ export const Demo : FunctionComponent<DemoProps> = (props) => {
         return(
             <div style={{width: "100%"}}>
                 <Button onClick={async () => {
-                    DownloadHelper.downloadTextAsFiletile(outputValue, "nodes.csv")
+                    DownloadHelper.downloadTextAsFiletile(outputValue, "Transpiled.json")
                 }}><div>{"Download"}</div></Button>
             </div>
         )

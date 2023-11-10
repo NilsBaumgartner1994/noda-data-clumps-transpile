@@ -37,7 +37,6 @@ export async function transpileToNoda(calculated){ // list of nodeInfo
         "links": []
     };
 
-    let calculatedKeys = Object.keys(calculated);
     for (let i = 0; i < calculatedKeys.length; i++) {
         let calculatedKey = calculatedKeys[i];
         let node = calculated[calculatedKey];
