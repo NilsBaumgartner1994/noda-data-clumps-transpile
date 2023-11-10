@@ -24,7 +24,7 @@ import Editor from '@monaco-editor/react';
 import {Button} from "primereact/button";
 import {transpileDataClumpsTypeContextToNodes} from "../core/transpileDataClumpsTypeContextToNodes";
 import {calcPositionOfNodes, getVrBounds} from "../core/calcPositionOfNodes";
-import {transpileToNodaCsv} from "../core/transpileToNodaCsv";
+import {transpileToNoda} from "../core/transpileToNoda";
 import DownloadHelper from "../helper/DownloadHelper";
 
 export interface DemoProps {
@@ -140,10 +140,10 @@ export const Demo : FunctionComponent<DemoProps> = (props) => {
         let testClumps = JSON.parse(content)
         let transpiledAsNodesList = transpileDataClumpsTypeContextToNodes(testClumps);
         let nodesWithPositionCalculated = await calcPositionOfNodes(transpiledAsNodesList)
-        let asCsv = await transpileToNodaCsv(nodesWithPositionCalculated)
-        //let calculatedAsString = JSON.stringify(calculated, null, 4);
+        let asNodaJson = await transpileToNoda(nodesWithPositionCalculated)
+        let asString = JSON.stringify(asNodaJson, null, 4);
         // @ts-ignore
-        setOutputValue(asCsv)
+        setOutputValue(asString)
     }
 
     function renderTranspileButton(){
