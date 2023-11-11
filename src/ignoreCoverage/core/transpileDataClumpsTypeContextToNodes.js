@@ -145,7 +145,7 @@ function getRawFileNode(filePath, filesDict) {
         fileNode = {
             id: filePath,
             label: fileName,
-            color: "#636363",
+            color: "#4cae50",
             size: 4,
             type: "file",
             classes_or_interfaces_ids: {}

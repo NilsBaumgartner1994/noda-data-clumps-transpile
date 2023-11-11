@@ -37,6 +37,10 @@ export async function transpileToNoda(calculated){ // list of nodeInfo
         "links": []
     };
 
+    let fold_for_large_nodes = true;
+    let amount_large_nodes = 250;
+    let should_fold = calculatedKeys.length > amount_large_nodes;
+
     for (let i = 0; i < calculatedKeys.length; i++) {
         let calculatedKey = calculatedKeys[i];
         let node = calculated[calculatedKey];
@@ -52,17 +56,45 @@ export async function transpileToNoda(calculated){ // list of nodeInfo
             case "parameter": shape = "Diamond"; break;
         }
 
+        let node_size = 5;
+        switch (node.type) {
+            case "file": node_size = 5; break;
+            case "class": node_size = 4; break;
+            case "method": node_size = 3; break;
+            case "parameter": node_size = 3; break;
+        }
+
+        let node_notes = node.label;
+        let node_text = ""
+        if(node.type=="file"){
+            node_text = node.label;
+        }
+
+        let node_collapsed = node.type=="file";
+        let node_folded = node.type!="file"
+        let outgoind_edge_folded = true;
+        if(!should_fold){
+            node_collapsed = false;
+            node_folded = false;
+            outgoind_edge_folded = false;
+        }
+
+
         // Add each node to the JSON
         jsonData.nodes.push({
             "id": 0, // Assuming this is a constant
             "title": null,
             "image": null,
             "kind": null,
-            "position": node.position,
+            "position": {
+                x: node.position.x,
+                y: node.position.y,
+                z: node.position.z
+            },
             "facing": { "w": 0, "x": 0, "y": 0, "z": 0 }, // Assuming default facing values
-            "collapsed": false,
-            "folded": false,
-            "opacity": 1.0,
+            "collapsed": node_collapsed,
+            "folded": node_folded,
+            "opacity": 1,
             "uuid": node.id,
             "tone": {
                 "r": parseInt(node.color.slice(1, 3), 16) / 255.0,
@@ -70,18 +102,18 @@ export async function transpileToNoda(calculated){ // list of nodeInfo
                 "b": parseInt(node.color.slice(5, 7), 16) / 255.0,
                 "a": 1.0
             },
-            "size": 5.0,
+            "size": node_size,
             "shape": shape,
             "properties": [{
-                "uuid": "some-unique-uuid", // Generate or assign a unique UUID
+                "uuid": node.id+"-property", // Generate or assign a unique UUID
                 "name": null,
-                "text": node.label || "",
+                "text": node_text || "",
                 "image": null,
                 "video": null,
                 "tone": { "r": 0.0, "g": 0.0, "b": 0.0, "a": 1.0 },
                 "size": 1.0,
                 "page": "",
-                "notes": ""
+                "notes": node_notes
             }]
         });
 
@@ -115,7 +147,7 @@ export async function transpileToNoda(calculated){ // list of nodeInfo
                     "kind": null,
                     "fromNode": { "id": 0, "Uuid": node.id },
                     "toNode": { "id": 0, "Uuid": edge },
-                    "folded": false,
+                    "folded": outgoind_edge_folded,
                     "opacity": 1.0,
                     "curve": "None",
                     "trail": "None",

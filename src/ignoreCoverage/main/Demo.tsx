@@ -159,6 +159,8 @@ export const Demo : FunctionComponent<DemoProps> = (props) => {
     function renderDownloadButton(){
         return(
             <div style={{width: "100%"}}>
+                <div>{"Save the downloaded file under: /Android/data/com.codingleap.noda/file/Maps/Transpiled.json"}</div>
+                <div>{"Attention: Files > 1mb might load long in Noda"}</div>
                 <Button onClick={async () => {
                     DownloadHelper.downloadTextAsFiletile(outputValue, "Transpiled.json")
                 }}><div>{"Download"}</div></Button>

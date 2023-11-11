@@ -6,9 +6,9 @@ export function getVrBounds(){
     let yOffset = 0.5
     let zOffset = 0.5
     const bounds = {
-        x: { min: -radius, max: radius },
-        y: { min: yOffset+0, max: yOffset+radius+radius },
-        z: { min: zOffset+0, max: zOffset+radius+radius}
+        x: { min: 0, max: 2 }, // In noda X is front and back, 0 is front
+        y: { min: -0.5, max: 1.5 }, // In Noda Y ist up and down; Down is negative; Up is positive
+        z: { min: -1, max: 1} // In Noda is left and right; Left is positive; Right is negative
     };
     return bounds;
 }
