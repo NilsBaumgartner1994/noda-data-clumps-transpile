@@ -7,7 +7,7 @@
 </p>
 
 <h2 align="center">
-Node Galaxy VR Transpile
+Data Clumps Transpiler for Noda
 </h2>
 
 <p align="center">
@@ -20,6 +20,7 @@ Node Galaxy VR Transpile
 
 ## About
 
+Using Noda (https://noda.io/) you can create graphs in VR (e.g. for the Quest3). Using this transpiler you can create Maps to explore detected Data Clumps (a special type of Code Smell) in VR. Just drag and drop a Data Clump Report (e.g. https://github.com/NilsBaumgartner1994/Data-Clumps-Dataset/blob/main/Data/Projects/jflex/tags/0b5fb7fde5072660b1275c9a8155dba5abe54d5d.json) and press after auto-transpiling on "Dowload". Then upload the "Transpiled.json" to your Maps folder.
 
 ## Live
 Here you can upload and explore your own projects:
@@ -30,6 +31,12 @@ https://nilsbaumgartner1994.github.io/noda-data-clumps-transpile
   <img src="https://github.com/NilsBaumgartner1994/noda-data-clumps-transpile/raw/master/docs/demo.gif" alt="backup" style="witdth:100px;"/>
 </a>
     
+
+
+## Roadmap
+
+- Include WebAPI: https://noda.io/documentation/webapi.html with Noda small Starter: https://noda.io/api/examples/simple.html
+
 
 ## License
 
